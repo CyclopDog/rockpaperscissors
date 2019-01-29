@@ -1,0 +1,78 @@
+<script>
+    let playRounds = 5;
+    let win = 0;
+    let lose = 0;
+    
+    playGame();
+    setScore();
+    
+    function playGame() {
+        for (let index = 0; index < playRounds; index++) {            
+            let playerInput = prompt('Choose rock, paper or scissors: ');
+            let computerInput = computerPlay();
+            let playOutcome = playRound(playerInput, computerInput);
+            console.log(`Computer selected ${computerInput}, ` + playOutcome);
+        }
+    }
+
+    function computerPlay() {
+        let compOptions = ["rock", "paper", "scissors"];
+        let randPlay = compOptions[Math.floor(Math.random() * compOptions.length)];
+        return randPlay;
+    }
+
+    function playRound(playerSelection, computerSelection) { 
+        playerSelection = playerSelection.toLowerCase();
+        let outcome;
+
+        if (playerSelection === 'rock') {
+            switch (computerSelection) {
+                case 'rock': outcome = 'It\'s a tie!';
+                break;
+                case 'paper': outcome = 'You lose!';
+                lose += 1;
+                break;
+                case 'scissors': outcome = 'You win!';
+                win += 1;
+                break;
+            }
+        } else if (playerSelection === 'paper') {
+            switch (computerSelection) {
+                case 'rock': outcome = 'You win!';
+                win += 1;
+                break;
+                case 'paper': outcome = 'It\'s a tie!';
+                break;
+                case 'scissors': outcome = 'You lose!';
+                lose += 1;
+                break;
+            } 
+        } else if (playerSelection === 'scissors') {
+            switch (computerSelection) {
+                case 'rock': outcome = 'You lose!';
+                lose += 1;
+                break;
+                case 'paper': outcome = 'You win!';
+                win += 1;
+                break;
+                case 'scissors': outcome = 'It\'s a tie!';
+                break;
+            } 
+        } else {
+            alert(playerSelection + ' is not a valid guess!');
+            playRounds += 1;
+        }
+        return outcome;
+     }
+
+    function setScore() {
+        console.log(`You have won ${win} and lost ${lose}`);
+        if (win > lose) {
+            console.log('Congratulations, you have won the game!');
+        } else if (lose > win) {
+            console.log('You have lost the game.');
+        } else {
+            console.log('The game was drawn!')
+        }
+    }
+</script>
